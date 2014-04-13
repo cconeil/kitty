@@ -4,32 +4,18 @@
 console.log("kitty");
 
 document.onkeydown = function(event) {
-  
 
-  
+  // NOTE: the close curly brace is key 221
 
-
-
-
-
-
-
-
-
-  // alert('test');
+  if (event.keyCode === 221) {
+    scan();
+  }
 };
 
 
-function listen()
-
-// $("#container").keydown(function (e) {
-//    //here you decide whether to handle the key event, and grab the control that sent the event 
-//    var myInput = e.target;
-//    $("#container").one('keyup', function() {
-//       console.log(myInput.val());  
-//       // do smth here
-//    });
-// });
+function scan() {
+  console.log('scanning');
+}
 
 
 
