@@ -43,6 +43,8 @@ function scan() {
   console.log('scanning');
   //locate targetID of the double bracket value shit
   //call the html function on that shit
+  $(":contains('}}')").each(function(i , v){
+    $(this).closest("div").css("height" , "500px");
 }
 
 
