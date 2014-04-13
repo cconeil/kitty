@@ -37,7 +37,10 @@ function replaceTargetWith(elt, html){
   // console.log(elt);
 
   console.log(elt.first());
-  console.log(elt.first.val());
+  console.log($(elt.first()).text());
+
+  console.log(/{{.+}}/.exec(elt.first().text()));
+  //document.getElementByClassName
 
 
   // elt.first().val('cock');
@@ -51,11 +54,19 @@ function grabImageUrl (string) {
 }
 
 function getDeepestElement (cb) {
-    $("*:contains('}}')").each(function(index) {
-        if($(this).children().length ==0) {
-          console.log($(this));
-          cb($(this));
+    $(".editable").each(function(index) {
+        if(/{{.+}}/.exec($(this).text())) {
+            //console.log($(this));
+            var blah = $(this).text();
+            blah.replace(/{{.+}}/, "");
+            $(this).text(blah);
+            var img = document.createElement('img');
+              /// fill that div with our html, this generates our children
+            img.src = 'https://4.bp.blogspot.com/_naR8H83E0A4/TJ1Q9zZuAfI/AAAAAAAAAFA/bfbzLBJ7RQ0/s1600/kitty1-922835.jpeg';
+            $(this).append(img);
+    //          cb($(this));
         }
+
     });
 }
 
@@ -65,7 +76,7 @@ function scan() {
   //call the html function on that shit
   getDeepestElement(function(elt) {
     console.log(elt);
-    replaceTargetWith(elt,"<img src='http://4.bp.blogspot.com/_naR8H83E0A4/TJ1Q9zZuAfI/AAAAAAAAAFA/bfbzLBJ7RQ0/s1600/kitty1-922835.jpeg'></img>");
+    replaceTargetWith(elt,"<img src='https://4.bp.blogspot.com/_naR8H83E0A4/TJ1Q9zZuAfI/AAAAAAAAAFA/bfbzLBJ7RQ0/s1600/kitty1-922835.jpeg'></img>");
   });
 }
 
@@ -73,7 +84,7 @@ function scan() {
 // the curly braces.  NOTE: You may get a couple of
 // extra spaces because of this function.  #YOLO
 function stripString(string) {
-  return x.replace(/{{(.*?)}}/, "");
+  //return x.replace(/{{(.*?)}}/, "");
 }
 
 
