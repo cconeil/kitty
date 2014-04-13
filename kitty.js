@@ -47,6 +47,13 @@ function scan() {
     $(this).closest("div").css("height" , "500px");
 }
 
+// returns the string without the text found in
+// the curly braces.  NOTE: You may get a couple of
+// extra spaces because of this function.  #YOLO
+function stripString(string) {
+  returns x.replace(/{{(.*?)}}/, "");
+}
+
 
 
 
