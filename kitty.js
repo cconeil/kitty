@@ -82,7 +82,37 @@ function replaceTargetWith(elt, html){
   // elt.parentNode.removeChild(target);
 }
 
-function grabImageUrl (string, callback) {
+function grabImageUrl (queryString, callback) {
+
+  queryString = 'purple monkey'
+  $.ajax({
+    url: "https://ajax.googleapis.com/ajax/services/search/images",
+    data: {
+      v: 1.0,
+      q: queryString
+    }
+  })
+  .done(function(data) {
+
+
+    var imageData = data['responseData']['results'][0];
+
+    console.log(imageData);
+
+    var imageUrl = imageData['url'];
+
+    console.log(imageUrl);
+
+
+    callback(imageUrl);
+  });
+
+
+
+
+
+
+
     //console.log(window.google);
 //    google.load("search", "1");
 
