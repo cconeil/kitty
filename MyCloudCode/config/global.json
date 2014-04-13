@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "_default": {
+            "link": "kitty"
+        }, 
+        "kitty": {
+            "applicationId": "sKVxInRYIY3tRWXF6JWu8XuD5zLrtokBQO7i4V6X", 
+            "masterKey": "9JLing7ZEvryUpS0W9zZ27vXA0PfIWDZKOpDVXIy"
+        }
+    }
+}

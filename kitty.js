@@ -1,12 +1,45 @@
 console.log("kitty");
 
+
+$(function () {
+    /*
+    $.getScript("https://www.parsecdn.com/js/parse-1.2.18.min.js", function () {
+  //      setTimeout (function () {
+//            google.load("search", "1"); 
+    //        }, 1000);          
+        console.log('loaded parse');
+        Parse.initialize("sKVxInRYIY3tRWXF6JWu8XuD5zLrtokBQO7i4V6X", "8AyKwmtCy6ByEYv96snwdDZzL3GftwzuJGlfDvWS");
+        var TestObject = Parse.Object.extend("TestObject");
+var testObject = new TestObject();
+testObject.save({foo: "bar"}).then(function(object) {
+  alert("yay! it worked");
+});
+*/
+Parse.initialize("sKVxInRYIY3tRWXF6JWu8XuD5zLrtokBQO7i4V6X", "8AyKwmtCy6ByEYv96snwdDZzL3GftwzuJGlfDvWS");
+        var TestObject = Parse.Object.extend("TestObject");
+var testObject = new TestObject();
+testObject.save({foo: "bar"}).then(function(object) {
+  alert("yay! it worked");
+    });
+
+
+}); 
+
+
+
+
+
+
+
 document.onkeydown = function(event) {
-
+    //console.log(google.load);
   // NOTE: the close curly brace is key 221
+  setTimeout(function( ) { 
+    if (event.keyCode === 221) {
+        scan();
+    }
+  }, 100);
 
-  if (event.keyCode === 221) {
-    scan();
-  }
 };
 
 function replaceTargetWith(elt, html){
@@ -49,23 +82,45 @@ function replaceTargetWith(elt, html){
   // elt.parentNode.removeChild(target);
 }
 
-function grabImageUrl (string) {
+function grabImageUrl (string, callback) {
+    //console.log(window.google);
+//    google.load("search", "1");
+
+    //console.log(google.load);
     //searches google for the url of the first image returned when you search this string
+    setTimeout(function() {
+        callback('https://4.bp.blogspot.com/_naR8H83E0A4/TJ1Q9zZuAfI/AAAAAAAAAFA/bfbzLBJ7RQ0/s1600/kitty1-922835.jpeg');
+    }, 0);
 }
+
+var getTextNodesIn = function(el) {
+    return $(el).find(":not(iframe)").addBack().contents().filter(function() {
+        return this.nodeType == 3;
+    });
+};
 
 function getDeepestElement (cb) {
     $(".editable").each(function(index) {
-        if(/{{.+}}/.exec($(this).text())) {
-            //console.log($(this));
-            var blah = $(this).text();
-            blah.replace(/{{.+}}/, "");
-            $(this).text(blah);
-            var img = document.createElement('img');
-              /// fill that div with our html, this generates our children
-            img.src = 'https://4.bp.blogspot.com/_naR8H83E0A4/TJ1Q9zZuAfI/AAAAAAAAAFA/bfbzLBJ7RQ0/s1600/kitty1-922835.jpeg';
-            $(this).append(img);
-    //          cb($(this));
-        }
+        that = this;
+        getTextNodesIn($(this)).each(function(childindex) {
+            if(/{{.+}}/.exec($(this).text())) {
+                //console.log($(this));
+                var blah = $(this).text();
+                var blah2 = blah.replace(/{{.+}}/, "");
+                $(this).text(blah2);
+                that.replaceChild(document.createTextNode(blah2), this);
+
+                grabImageUrl("kittycat", function(image) {
+                    console.log('adding kitty');
+                    var img = document.createElement('img');
+                      /// fill that div with our html, this generates our children
+                    img.src = image;
+                    $(that).append(img);
+                });
+            //      cb($(this));
+            }
+        });
+
 
     });
 }
