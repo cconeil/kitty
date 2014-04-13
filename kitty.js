@@ -1,6 +1,3 @@
-
-
-
 console.log("kitty");
 
 document.onkeydown = function(event) {
@@ -39,12 +36,22 @@ function grabImageUrl (string) {
     //searches google for the url of the first image returned when you search this string
 }
 
+function getDeepestElement (cb) {
+    $("*:contains('}}')").each(function(index) {
+        if($(this).children().length ==0) {
+            cb($(this));
+        }
+    });
+}
+
 function scan() {
   console.log('scanning');
   //locate targetID of the double bracket value shit
   //call the html function on that shit
-  $(":contains('}}')").each(function(i , v){
-    $(this).closest("div").css("height" , "500px");
+    getDeepestElement(function(elt) {
+        //elt.closest("div").css("height" , "500px");
+        replaceTargetWith(elt,"<img src='http://4.bp.blogspot.com/_naR8H83E0A4/TJ1Q9zZuAfI/AAAAAAAAAFA/bfbzLBJ7RQ0/s1600/kitty1-922835.jpeg'></img>");
+    });
 }
 
 // returns the string without the text found in
