@@ -15,13 +15,7 @@ testObject.save({foo: "bar"}).then(function(object) {
   alert("yay! it worked");
 });
 */
-Parse.initialize("sKVxInRYIY3tRWXF6JWu8XuD5zLrtokBQO7i4V6X", "8AyKwmtCy6ByEYv96snwdDZzL3GftwzuJGlfDvWS");
-        var TestObject = Parse.Object.extend("TestObject");
-var testObject = new TestObject();
-testObject.save({foo: "bar"}).then(function(object) {
-  alert("yay! it worked");
-    });
-
+//Parse.initialize("sKVxInRYIY3tRWXF6JWu8XuD5zLrtokBQO7i4V6X", "8AyKwmtCy6ByEYv96snwdDZzL3GftwzuJGlfDvWS");
 
 }); 
 
@@ -83,28 +77,36 @@ function replaceTargetWith(elt, html){
 }
 
 function grabImageUrl (queryString, callback) {
+    console.log('kjfsdkjfhskdjhfjkshdkfhksdhfksd')
 
   queryString = 'purple monkey'
-  $.ajax({
-    url: "https://ajax.googleapis.com/ajax/services/search/images",
-    data: {
-      v: 1.0,
-      q: queryString
-    }
-  })
-  .done(function(data) {
+  $.get("https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=monkey").done(function(data) {
+    //console.log(data);
+    console.log(JSON.parse(data['responseData']['results'][0]).responseText);
 
 
-    var imageData = data['responseData']['results'][0];
+    var imageData = data['responseData']['results'][0].responseText;
 
-    console.log(imageData);
+    //console.log(imageData);
 
     var imageUrl = imageData['url'];
+    callback(imageUrl);
 
-    console.log(imageUrl);
+    //console.log(imageUrl);
 
 
     callback(imageUrl);
+  }).error(function (data) {
+    var results = JSON.parse(data.responseText);
+    console.log(data.responseText);
+
+    var imageData = results['responseData']['results'][0];
+
+    //console.log(imageData);
+
+    var imageUrl = imageData['url'];
+    callback(imageUrl);
+    console.log(imageUrl);
   });
 
 
